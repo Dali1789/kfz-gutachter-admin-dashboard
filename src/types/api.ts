@@ -9,6 +9,7 @@ export interface Customer {
   name: string
   email: string
   phone: string
+  case_count: number
   created_at: string
   updated_at: string
 }
@@ -47,14 +48,22 @@ export interface Case {
   case_number: string
   customer_id: number
   vehicle_id: number
+  vehicle_make: string
+  vehicle_model: string
+  license_plate: string
   accident_date: string
   accident_location: string
   case_type: CaseType
+  damage_type: string
   damage_description: string
   insurance_company?: string
   insurance_number?: string
   estimated_cost?: number
+  estimated_damage_cost?: number
   status: CaseStatus
+  customer_number?: string
+  customer_email?: string
+  customer_phone?: string
   created_at: string
   updated_at: string
 }

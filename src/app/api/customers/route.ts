@@ -12,19 +12,28 @@ export async function GET() {
 
     const result = await client.query(`
       SELECT
-        id,
-        customer_number,
-        email,
-        phone,
-        created_at,
-        updated_at
-      FROM customers
-      ORDER BY created_at DESC
+        c.id,
+        c.customer_number,
+        c.email,
+        c.phone,
+        c.created_at,
+        c.updated_at,
+        COUNT(cs.id) as case_count
+      FROM customers c
+      LEFT JOIN cases cs ON c.id = cs.customer_id
+      GROUP BY c.id, c.customer_number, c.email, c.phone, c.created_at, c.updated_at
+      ORDER BY c.created_at DESC
     `)
+
+    // Transform to include case count
+    const customers = result.rows.map((row) => ({
+      ...row,
+      case_count: parseInt(row.case_count) || 0,
+    }))
 
     return NextResponse.json({
       success: true,
-      customers: result.rows,
+      customers: customers,
     })
   } catch (error) {
     console.error('Database Error:', error)

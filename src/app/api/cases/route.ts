@@ -27,9 +27,13 @@ export async function GET() {
         c.created_at,
         c.updated_at,
         v.make_model,
-        v.license_plate
+        v.license_plate,
+        cu.customer_number,
+        cu.email as customer_email,
+        cu.phone as customer_phone
       FROM cases c
       LEFT JOIN vehicles v ON c.vehicle_id = v.id
+      LEFT JOIN customers cu ON c.customer_id = cu.id
       ORDER BY c.created_at DESC
     `)
 

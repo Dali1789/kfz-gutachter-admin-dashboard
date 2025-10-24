@@ -124,6 +124,7 @@ export default function FaellePage() {
                 <thead>
                   <tr className="border-b text-left text-sm font-medium text-gray-600">
                     <th className="pb-3">Fall-Nr</th>
+                    <th className="pb-3">Kunde</th>
                     <th className="pb-3">Fahrzeug</th>
                     <th className="pb-3">Kennzeichen</th>
                     <th className="pb-3">Schadensart</th>
@@ -137,6 +138,14 @@ export default function FaellePage() {
                   {filteredCases.map((c) => (
                     <tr key={c.id} className="border-b last:border-0 hover:bg-gray-50">
                       <td className="py-4 font-medium">{c.case_number}</td>
+                      <td className="py-4">
+                        <div className="text-sm">
+                          <div className="font-medium text-gray-900">{c.customer_number || 'N/A'}</div>
+                          {c.customer_email && (
+                            <div className="text-gray-500">{c.customer_email}</div>
+                          )}
+                        </div>
+                      </td>
                       <td className="py-4 text-gray-900">
                         {c.vehicle_make} {c.vehicle_model}
                       </td>

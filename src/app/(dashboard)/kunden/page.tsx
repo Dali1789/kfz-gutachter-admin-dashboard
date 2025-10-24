@@ -94,6 +94,7 @@ export default function KundenPage() {
                     <th className="pb-3">Kunden-Nr</th>
                     <th className="pb-3">Name</th>
                     <th className="pb-3">Kontakt</th>
+                    <th className="pb-3">Fälle</th>
                     <th className="pb-3">Erstellt am</th>
                     <th className="pb-3">Aktionen</th>
                   </tr>
@@ -124,6 +125,11 @@ export default function KundenPage() {
                             </a>
                           </div>
                         </div>
+                      </td>
+                      <td className="py-4">
+                        <Badge variant={customer.case_count > 0 ? 'default' : 'secondary'}>
+                          {customer.case_count} {customer.case_count === 1 ? 'Fall' : 'Fälle'}
+                        </Badge>
                       </td>
                       <td className="py-4 text-gray-600">{formatDateTime(customer.created_at)}</td>
                       <td className="py-4">
