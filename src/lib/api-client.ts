@@ -117,22 +117,43 @@ export async function checkApiHealth(): Promise<{ status: string; version: strin
 }
 
 /**
- * Alle Kunden abrufen
+ * Alle Kunden abrufen (über Server-Side API → PostgreSQL)
  */
 export async function getAllCustomers(): Promise<Customer[]> {
-  return apiRequest<Customer[]>('/api/customers')
+  const response = await fetch('/api/customers')
+  const data = await response.json()
+
+  if (!data.success) {
+    throw new Error(data.error || 'Fehler beim Laden der Kunden')
+  }
+
+  return data.customers || []
 }
 
 /**
- * Alle Fälle abrufen
+ * Alle Fälle abrufen (über Server-Side API → PostgreSQL)
  */
 export async function getAllCases(): Promise<Case[]> {
-  return apiRequest<Case[]>('/api/cases')
+  const response = await fetch('/api/cases')
+  const data = await response.json()
+
+  if (!data.success) {
+    throw new Error(data.error || 'Fehler beim Laden der Fälle')
+  }
+
+  return data.cases || []
 }
 
 /**
- * Alle Dokumente abrufen
+ * Alle Dokumente abrufen (über Server-Side API → PostgreSQL)
  */
 export async function getAllDocuments(): Promise<Document[]> {
-  return apiRequest<Document[]>('/api/documents')
+  const response = await fetch('/api/documents')
+  const data = await response.json()
+
+  if (!data.success) {
+    throw new Error(data.error || 'Fehler beim Laden der Dokumente')
+  }
+
+  return data.documents || []
 }
